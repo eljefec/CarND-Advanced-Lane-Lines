@@ -17,6 +17,8 @@ The goals / steps of this project are the following:
 [undistorted-curved]: ./output_images/1-undistorted/test5.jpg "Undistorted Curved"
 [binary-straight]: ./output_images/2-binary/straight_lines1.jpg "Binary Straight"
 [binary-curved]: ./output_images/2-binary/test5.jpg "Binary Curved"
+[birdseye-straight]: ./output_images/3-birdseye/straight_lines1.jpg "Bird's Eye Straight"
+[birdseye-curved]: ./output_images/3-birdseye/test5.jpg "Bird's Eye Curved"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -38,7 +40,7 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained these results: 
 
-![alt text][undistorted-straight]
+![alt text][undistorted-straight =250x]
 ![alt text][undistorted-curved]
 
 ###Pipeline (single images)
@@ -49,42 +51,44 @@ See above for 2 examples of distortion-corrected images.
 
 ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image. Find the code for this under the title "Use color transforms, gradients, etc., to create a thresholded binary image." 
+I used a combination of color and gradient thresholds to generate a binary image. Find the code for this under the title "Use color transforms, gradients, etc., to create a thresholded binary image." The function is called `get_binary_image()`.
 
-I converted colors to HLS space because hue and saturation were the best at picking out lane lines.
+I converted colors to HLS space because hue and saturation were the best at picking out lane lines. Gradient thresholds helped a little to pick out some of the more subtle sections of lane line.
 
 ![alt text][binary-straight]
 ![alt text][binary-curved]
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform is in the code cell below "Apply a perspective transform to rectify binary image ("birds-eye view").". The function is called `warp()`. 
+
+I started with similar src and dst points from the provided "example_writeup.pdf", and modified them slightly to get the best results on straight lines.
 
 ```
 src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
+    [[(img_size[0] / 2) - 62, img_size[1] / 2 + 100],
     [((img_size[0] / 6) - 10), img_size[1]],
     [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
+    [(img_size[0] / 2 + 65), img_size[1] / 2 + 100]])
 dst = np.float32(
     [[(img_size[0] / 4), 0],
     [(img_size[0] / 4), img_size[1]],
     [(img_size[0] * 3 / 4), img_size[1]],
     [(img_size[0] * 3 / 4), 0]])
-
 ```
 This resulted in the following source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
+| 578, 460      | 320, 0        | 
 | 203, 720      | 320, 720      |
 | 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
+| 705, 460      | 960, 0        |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![alt text][birdseye-straight]
+![alt text][birdseye-curved]
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
