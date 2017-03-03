@@ -17,6 +17,7 @@ The goals / steps of this project are the following:
 [binary-straight]: ./output_images/2-binary/straight_lines1.jpg "Binary Straight"
 [birdseye-straight]: ./output_images/3-birdseye/straight_lines1.jpg "Bird's Eye Straight"
 [windows-straight]: ./output_images/4-windows/straight_lines1.jpg "Windows Straight"
+[reverse_warped-straight]: ./output_images/6-reverse_warped/straight_lines1.jpg "Reverse Warped Straight"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -44,7 +45,7 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ####1. Provide an example of a distortion-corrected image.
 
-See above for 2 examples of distortion-corrected images.
+See above for an example of distortion-corrected images.
 
 ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
@@ -93,19 +94,25 @@ The code calculates a histogram of pixels column by column. The peaks in each ha
 
 Finally, the function fits a second order polynomial to each set of lane pixels using `np.polyfit()`.
 
-Below are examples of identifying lane-line pixels via a sliding window.
+Below is an example of identifying lane-line pixels via a sliding window.
 
 ![alt text][windows-straight]
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+You can find this code under heading "Determine the curvature of the lane and vehicle position with respect to center." in functions `calc_radius_of_curvature_meters()` and `calc_center_offset_meters()`.
+
+For radius of curvature, the function converts lane pixels into real-world points, then fits a 2nd-order polynomial. The radii of curvature are calculated using the formula found [here](http://www.intmath.com/applications-differentiation/8-radius-curvature.php) and described in the lectures. I averaged the left and right radii of curvature to arrive at a single value per frame.
+
+For the vehicle's offset from center, `calc_center_offset_meters()` calculates the x-value for each lane at the bottom of the image then averages them to find the middle of the lane. It assumes the middle of the image is the middle of the vehicle, and calculates the offset by subtracting the lane center from the image center. Finally, the offset is converted from pixels to meters.
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+You can find this code under heading "Warp the detected lane boundaries back onto the original image." in function `reverse_warp()`.
 
-![alt text][image6]
+Here is an example of my result on a test image:
+
+![alt text][reverse_warped-straight]
 
 ---
 
