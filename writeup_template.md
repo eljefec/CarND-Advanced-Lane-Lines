@@ -15,8 +15,8 @@ The goals / steps of this project are the following:
 
 [undistorted-straight]: ./output_images/1-undistorted/straight_lines1.jpg "Undistorted Straight"
 [undistorted-curved]: ./output_images/1-undistorted/test5.jpg "Undistorted Curved"
-[binary-straight]: ./output_images/1-binary/straight_lines1.jpg "Binary Straight"
-[binary-curved]: ./output_images/1-binary/test5.jpg "Binary Curved"
+[binary-straight]: ./output_images/2-binary/straight_lines1.jpg "Binary Straight"
+[binary-curved]: ./output_images/2-binary/test5.jpg "Binary Curved"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
