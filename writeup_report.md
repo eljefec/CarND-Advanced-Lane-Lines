@@ -14,13 +14,9 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [undistorted-straight]: ./output_images/1-undistorted/straight_lines1.jpg "Undistorted Straight"
-[undistorted-curved]: ./output_images/1-undistorted/test5.jpg "Undistorted Curved"
 [binary-straight]: ./output_images/2-binary/straight_lines1.jpg "Binary Straight"
-[binary-curved]: ./output_images/2-binary/test5.jpg "Binary Curved"
 [birdseye-straight]: ./output_images/3-birdseye/straight_lines1.jpg "Bird's Eye Straight"
-[birdseye-curved]: ./output_images/3-birdseye/test5.jpg "Bird's Eye Curved"
 [windows-straight]: ./output_images/4-windows/straight_lines1.jpg "Windows Straight"
-[windows-curved]: ./output_images/4-windows/test5.jpg "Windows Curved"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -43,7 +39,6 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained these results: 
 
 ![alt text][undistorted-straight]
-![alt text][undistorted-curved]
 
 ###Pipeline (single images)
 
@@ -58,7 +53,6 @@ I used a combination of color and gradient thresholds to generate a binary image
 I converted colors to HLS space because hue and saturation were the best at picking out lane lines. Gradient thresholds helped a little to pick out some of the more subtle sections of lane line.
 
 ![alt text][binary-straight]
-![alt text][binary-curved]
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
@@ -90,7 +84,6 @@ This resulted in the following source and destination points:
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
 ![alt text][birdseye-straight]
-![alt text][birdseye-curved]
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
@@ -103,7 +96,6 @@ Finally, the function fits a second order polynomial to each set of lane pixels 
 Below are examples of identifying lane-line pixels via a sliding window.
 
 ![alt text][windows-straight]
-![alt text][windows-curved]
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
