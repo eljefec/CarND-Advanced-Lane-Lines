@@ -19,6 +19,8 @@ The goals / steps of this project are the following:
 [binary-curved]: ./output_images/2-binary/test5.jpg "Binary Curved"
 [birdseye-straight]: ./output_images/3-birdseye/straight_lines1.jpg "Bird's Eye Straight"
 [birdseye-curved]: ./output_images/3-birdseye/test5.jpg "Bird's Eye Curved"
+[windows-straight]: ./output_images/4-windows/straight_lines1.jpg "Windows Straight"
+[windows-curved]: ./output_images/4-windows/test5.jpg "Windows Curved"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -40,7 +42,7 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained these results: 
 
-![alt text][undistorted-straight =250x]
+![alt text][undistorted-straight]
 ![alt text][undistorted-curved]
 
 ###Pipeline (single images)
@@ -92,9 +94,16 @@ I verified that my perspective transform was working as expected by drawing the 
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+You can find this code under heading "Detect lane pixels and fit to find the lane boundary." in functions `find_lanes()` and `find_lanes_with_hint()`.
 
-![alt text][image5]
+The code calculates a histogram of pixels column by column. The peaks in each half of the image are assumed to be the starting point for the left and right lanes. Next, it fits 9 sliding windows along the length of each lane. Proceeding from the bottom, if there are enough pixels within the window, then it slides the window to the mean of those pixels.
+
+Finally, the function fits a second order polynomial to each set of lane pixels using `np.polyfit()`.
+
+Below are examples of identifying lane-line pixels via a sliding window.
+
+![alt text][windows-straight]
+![alt text][windows-curved]
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
