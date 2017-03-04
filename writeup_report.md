@@ -128,6 +128,27 @@ Here's a [link to my video result](./project_output_smoothed.mp4)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-####TODO
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The main problem I faced during implementation was creating the thresholded binary image. I didn't know what threshold values to use and how best to combine the numerous binary images. 
 
+To find the right combinations of thresholds, I experimented with threshold values and with various combinations of binary images. As test input, I used the images under the folder 'test_images'. 
+
+Converting the color image to HLS space (hue, lightness, and saturation) extracted the most useful information. The S channel was the clearest indication for lane lines in the test images. The H channel restricted to the yellow band was good at picking out yellow lane lines. I combined each channel with the L channel via a bitwise-and operator. The foundation of my lane-line picking algorithm was: `(H AND S) OR (L AND S)`, which simplifies to `(H OR L) AND S`. This did the best job of picking out lane lines.
+
+I incorporated the x, y, magnitude, and direction of the gradient via the sobel operator because it was good at picking up smaller sections of dashed lane lines. My expression for this portion was `(magnitude AND direction) OR (x-gradient AND y-gradient)`.
+
+Another problem I found was that the radii of curvature and offset from center calculated by my `Pipeline` class were changing a fair bit between video frames. I implemented a `Smoother` class that kept a rolling window of lane lines and returned an average of the recently found lane lines. I tried different window sizes and decided on 5 frames.
+
+My pipeline will likely fail in conditions where lane lines are less prominent:
+
+* Faded lane lines
+* Snow
+* Wet road causing reflections on ground
+* Speckled road
+* Roads with paint test strips
+
+To make it more robust, I could:
+
+* Update `Smoother` class to weight recent images.
+* Find more challenging test images and tweak thresholds to perform well on difficult images.
+* Use Hough transform to find lines and cluster lines based on position and slope.
+* Incorporate a filter that rejects lane lines that are too different from recently found lane lines.
