@@ -139,6 +139,7 @@ I incorporated the x, y, magnitude, and direction of the gradient via the sobel 
 Another problem I found was that the radii of curvature and offset from center calculated by my `Pipeline` class were changing a fair bit between video frames. I implemented a `Smoother` class that kept a rolling window of lane lines and returned an average of the recently found lane lines. I tried different window sizes and decided on 5 frames.
 
 My pipeline will likely fail in conditions where lane lines are less prominent:
+
 * Faded lane lines
 * Snow
 * Wet road causing reflections on ground
@@ -146,6 +147,7 @@ My pipeline will likely fail in conditions where lane lines are less prominent:
 * Roads with paint test strips
 
 To make it more robust, I could:
+
 * Update `Smoother` class to weight recent images.
 * Find more challenging test images and tweak thresholds to perform well on difficult images.
 * Use Hough transform to find lines and cluster lines based on position and slope.
