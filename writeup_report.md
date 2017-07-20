@@ -21,17 +21,17 @@ The goals / steps of this project are the following:
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
+### Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.
 
 You're reading it!
-###Camera Calibration
+### Camera Calibration
 
-####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
 The code for this step is contained in the first code cell of the IPython notebook located in "./CarND-Advanced-Lane-Lines.ipynb".  
 
@@ -41,13 +41,13 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ![alt text][undistorted-straight]
 
-###Pipeline (single images)
+### Pipeline (single images)
 
-####1. Provide an example of a distortion-corrected image.
+#### 1. Provide an example of a distortion-corrected image.
 
 See above for an example of distortion-corrected images.
 
-####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
 I used a combination of color and gradient thresholds to generate a binary image. Find the code for this under the title "Use color transforms, gradients, etc., to create a thresholded binary image." The function is called `get_binary_image()`.
 
@@ -55,7 +55,7 @@ I converted colors to HLS space because hue and saturation were the best at pick
 
 ![alt text][binary-straight]
 
-####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform is in the code cell below "Apply a perspective transform to rectify binary image ("birds-eye view").". The function is called `warp()`. 
 
@@ -86,7 +86,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 ![alt text][birdseye-straight]
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 You can find this code under heading "Detect lane pixels and fit to find the lane boundary." in functions `find_lanes()` and `find_lanes_with_hint()`.
 
@@ -98,7 +98,7 @@ Below is an example of identifying lane-line pixels via a sliding window.
 
 ![alt text][windows-straight]
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
 You can find this code under heading "Determine the curvature of the lane and vehicle position with respect to center." in functions `calc_radius_of_curvature_meters()` and `calc_center_offset_meters()`.
 
@@ -106,7 +106,7 @@ For radius of curvature, the function converts lane pixels into real-world point
 
 For the vehicle's offset from center, `calc_center_offset_meters()` calculates the x-value for each lane at the bottom of the image then averages them to find the middle of the lane. It assumes the middle of the image is the middle of the vehicle, and calculates the offset by subtracting the lane center from the image center. Finally, the offset is converted from pixels to meters.
 
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 You can find this code under heading "Warp the detected lane boundaries back onto the original image." in function `reverse_warp()`.
 
@@ -116,17 +116,17 @@ Here is an example of my result on a test image:
 
 ---
 
-###Pipeline (video)
+### Pipeline (video)
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's a [link to my video result](./project_output_smoothed.mp4)
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 The main problem I faced during implementation was creating the thresholded binary image. I didn't know what threshold values to use and how best to combine the numerous binary images. 
 
